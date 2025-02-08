@@ -1,0 +1,41 @@
+:root {
+   --blackPiece: #1f1f1f;
+   --blackPieceStroke: #d6d6d6;
+   --darkCell: #6d7384;
+   --lightCell: #888d9b;
+   --selectedOverlay: rgba(0, 0, 0, 0.4);
+   --hoverOverlay: rgba(0, 0, 0, 0.5);
+   --targetCorners: rgba(59, 80, 114, 0.8);
+   --targetCornersOver: rgb(113, 61, 61, 0.8);
+   --targetText: #d6d6d6;
+   --wallCell: #2e3037;
+   --whitePiece: #d6d6d6;
+   --whitePieceStroke: #1f1f1f;
+   --textNormal: CanvasText;
+   --pageBackground: #1f1f1f;
+   --button: #3b5072;
+   --buttonText: #d6d6d6;
+   --buttonHover: darken(#3b5072, 4%);
+   color-scheme: dark light;
+}
+
+*,
+*:before,
+*:after {
+   box-sizing: inherit;
+}
+
+body {
+   margin: 0;
+   font-family: sans-serif;
+   background-color: var(--pageBackground);
+   color: var(--textNormal);
+   box-sizing: border-box;
+}
+
+#app {
+   display: flex;
+   flex-direction: column;
+   max-height: 100vh;
+   height: 100vh;
+}
