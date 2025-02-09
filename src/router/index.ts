@@ -11,9 +11,10 @@ const router = createRouter({
          component: HomeView,
       },
       {
-         path: '/square-control',
+         path: '/square-control/:seed/:squareCount?/:pieceCount?',
          name: 'square-control',
          component: SquareControlView,
+         props: true,
       },
    ],
 });

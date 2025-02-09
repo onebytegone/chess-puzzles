@@ -153,7 +153,6 @@ export function makeSquareControlBoard(
             memo[cell.position.y][cell.position.x] = undefined;
          } else {
             memo[cell.position.y][cell.position.x] = {
-               id: cell.id,
                piece: cell.type === CellType.BoardChessPiece ? cell.piece.value : undefined,
             };
          }

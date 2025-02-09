@@ -12,8 +12,8 @@ import { computed } from 'vue';
 
 const props = defineProps<{
    cellID: string;
-   expectedControlCount?: number;
-   actualControlCount?: number;
+   expectedControlCount: number;
+   actualControlCount: number;
    isSelected?: boolean;
    isControlled?: boolean;
    isTinted?: boolean;
@@ -24,14 +24,8 @@ const stateClasses = computed(() => {
       tinted: !!props.isTinted,
       selected: !!props.isSelected,
       controlled: !!props.isControlled,
-      under:
-         props.actualControlCount &&
-         props.expectedControlCount &&
-         props.actualControlCount < props.expectedControlCount,
-      over:
-         props.actualControlCount &&
-         props.expectedControlCount &&
-         props.actualControlCount > props.expectedControlCount,
+      under: props.actualControlCount < props.expectedControlCount,
+      over: props.actualControlCount > props.expectedControlCount,
    };
 });
 </script>

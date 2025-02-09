@@ -53,60 +53,29 @@
 <script setup lang="ts">
 import { useTemplateRef, watch } from 'vue';
 import ChessSquare from './ChessSquare.vue';
-import { ChessPieceType, ChessPlayer } from '@/lib/chess-piece-types';
 import PieceDepotCell from './PieceDepotCell.vue';
 import { CellType, makeSquareControlBoard } from '@/model/SquareControlBoard';
 import { useDraggablePiece } from '@/composables/use-draggable-piece';
 import ChessPieceIcon from './ChessPieceIcon.vue';
 import TargetSquare from './TargetSquare.vue';
 import WallSquare from './WallSquare.vue';
+import { generateSquareControlLevel } from '@/lib/generate-square-control-level';
 
 const chessBoard = useTemplateRef<HTMLElement>('chessBoard');
 
-const boardCells = Array(8)
-   .fill(undefined)
-   .map(() => {
-      return Array(8)
-         .fill(undefined)
-         .map(() => {
-            if (Math.random() > 0.8) {
-               return undefined;
-            }
+const props = defineProps<{
+   seed: number;
+   squareCount: number;
+   pieceCount: number;
+}>();
 
-            if (Math.random() > 0.5) {
-               return {
-                  expected: Math.floor(Math.random() * 3 + 1),
-               };
-            }
-            return {
-               piece:
-                  Math.random() > 0.7
-                     ? {
-                          type: ChessPieceType.Bishop,
-                          player: ChessPlayer.White,
-                       }
-                     : undefined,
-            };
-         });
-   });
+const level = generateSquareControlLevel({
+   seed: props.seed,
+   board: { squareCount: props.squareCount },
+   pieces: props.pieceCount,
+});
 
-const pieces = Object.values(ChessPieceType);
-
-const depotCells = Array(5)
-   .fill(undefined)
-   .map(() => {
-      const piece = pieces.splice(Math.floor(Math.random() * pieces.length), 1)[0];
-
-      return {
-         piece: {
-            type: piece,
-            player: ChessPlayer.Black,
-         },
-         available: Math.floor(Math.random() * 7) + 1,
-      };
-   });
-
-const board = makeSquareControlBoard(boardCells, depotCells);
+const board = makeSquareControlBoard(level.board, level.depot);
 
 const { selectedCellID, hoveredCellID, hoverPosition, isDragging } = useDraggablePiece({
    canMoveToCell: (sourceCellID, targetCellID) => {
@@ -134,7 +103,9 @@ watch(selectedCellID, (cellID) => {
 watch(hoveredCellID, board.setHoveredCell);
 
 defineExpose({
-   resetGame: () => {},
+   resetGame: () => {
+      window.location.reload();
+   },
 });
 </script>
 

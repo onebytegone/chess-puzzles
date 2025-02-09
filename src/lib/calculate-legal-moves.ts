@@ -1,7 +1,6 @@
 import { type ChessPiece, ChessPieceType, ChessPlayer } from './chess-piece-types';
 
 interface ChessBoardCell {
-   id: string;
    piece?: ChessPiece;
 }
 

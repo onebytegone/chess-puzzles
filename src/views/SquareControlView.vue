@@ -4,7 +4,12 @@
       <Button @click.prevent="resetGame">Restart</Button>
    </NavigationBar>
    <main>
-      <SquareControl ref="game" />
+      <SquareControl
+         ref="game"
+         :seed="Number(props.seed)"
+         :squareCount="Number(props.squareCount || 25)"
+         :pieceCount="Number(props.pieceCount || 5)"
+      />
    </main>
 </template>
 
@@ -27,6 +32,12 @@ onBeforeUnmount(() => {
 const resetGame = () => {
    game.value?.resetGame();
 };
+
+const props = defineProps<{
+   seed: string;
+   squareCount?: string;
+   pieceCount?: string;
+}>();
 </script>
 
 <style lang="scss" scoped>

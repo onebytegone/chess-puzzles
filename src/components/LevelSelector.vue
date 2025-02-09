@@ -1,6 +1,6 @@
 <template>
    <div class="levelSelector">
-      <Button v-for="level in levels" :key="level.id" routeTo="/square-control">{{
+      <Button v-for="level in levels" :key="level.id" :routeTo="'/square-control/' + level.id">{{
          level.name
       }}</Button>
    </div>
