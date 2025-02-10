@@ -1,7 +1,8 @@
 <template>
    <div class="target" :class="stateClasses">
       <div class="contents">
-         <span>{{ props.expectedControlCount }}</span>
+         <span v-if="props.isSelected">{{ props.actualControlCount }}</span>
+         <span v-else>{{ props.expectedControlCount }}</span>
          <!-- <span class="id">{{ props.cellID }}</span> -->
       </div>
    </div>
