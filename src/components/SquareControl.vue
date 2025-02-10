@@ -1,52 +1,59 @@
 <template>
-   <div class="squareControl" :class="{ isDragging }">
+   <div class="squareControl" :class="{ isDragging: hoverPosition }">
       <div ref="chessBoard" class="chessBoard">
-         <template v-for="cell in board.boardState" :key="cell.id">
+         <template v-for="cell in manager.boardCells.flat()" :key="cell.id">
             <ChessSquare
-               v-if="cell.type === CellType.BoardChessPiece"
+               v-if="cell.type === SquareControlBoardCellType.Square"
                :cellID="cell.id"
-               class="draggablePieceCell"
-               :data-draggable-piece-cell-id="cell.id"
-               :class="{ hasDraggablePiece: !!cell.piece.value }"
+               :data-draggable-item-id="cell.piece.value ? cell.id : undefined"
+               :data-drop-zone-id="!cell.piece.value ? cell.id : undefined"
                :isSelected="cell.isSelected.value"
-               :isHovered="cell.isHovered.value"
+               :isHovered="cell.id === hoveredDropZoneID"
                :isTinted="cell.isTinted"
-               :isControlled="!!selectedCellID && cell.controlledBy.value.includes(selectedCellID)"
-               :piece="cell.piece.value"
+               :isControlled="cell.isControlled.value"
+               :piece="
+                  cell.id === manager.selectedCellID.value && hoverPosition
+                     ? undefined
+                     : cell.piece.value
+               "
             />
             <TargetSquare
-               v-else-if="cell.type === CellType.BoardTargetCell"
+               v-else-if="cell.type === SquareControlBoardCellType.Target"
                :cellID="cell.id"
                :expectedControlCount="cell.expected"
-               :actualControlCount="cell.controlledBy.value.length"
+               :actualControlCount="cell.actual.value"
                :isSelected="cell.isSelected.value"
                :isTinted="cell.isTinted"
-               :isControlled="!!selectedCellID && cell.controlledBy.value.includes(selectedCellID)"
+               :isControlled="cell.isControlled.value"
             />
             <WallSquare v-else :cellID="cell.id" />
          </template>
          <div
             class="floatingPiece"
-            v-if="board.selectedPiece.value && isDragging"
+            v-if="manager.selectedPiece.value && hoverPosition"
             :style="{ top: hoverPosition.x + 'px', left: hoverPosition.y + 'px' }"
          >
-            <ChessPieceIcon :piece="board.selectedPiece.value" />
+            <ChessPieceIcon :piece="manager.selectedPiece.value" />
          </div>
       </div>
 
       <div class="pieceDepot">
          <PieceDepotCell
-            v-for="cell in board.depotState"
+            v-for="cell in manager.depotCells"
             :key="cell.id"
-            class="draggablePieceCell"
-            :data-draggable-piece-cell-id="cell.id"
-            :class="{ hasDraggablePiece: cell.available.value > 0 }"
+            :data-draggable-item-id="cell.available.value > 0 ? cell.id : undefined"
+            :data-drop-zone-id="cell.id"
             :piece="cell.piece"
             :available="cell.available.value"
             :isSelected="cell.isSelected.value"
-            :isHovered="cell.isHovered.value"
+            :isHovered="cell.id === hoveredDropZoneID"
          />
       </div>
+
+      <dialog ref="completedDialog">
+         <h2>Completed!</h2>
+         <Button routeTo="/">Back</Button>
+      </dialog>
    </div>
 </template>
 
@@ -54,14 +61,18 @@
 import { useTemplateRef, watch } from 'vue';
 import ChessSquare from './ChessSquare.vue';
 import PieceDepotCell from './PieceDepotCell.vue';
-import { CellType, makeSquareControlBoard } from '@/model/SquareControlBoard';
-import { useDraggablePiece } from '@/composables/use-draggable-piece';
 import ChessPieceIcon from './ChessPieceIcon.vue';
 import TargetSquare from './TargetSquare.vue';
 import WallSquare from './WallSquare.vue';
-import { generateSquareControlLevel } from '@/lib/generate-square-control-level';
+import { generateSquareControlLevel } from '@/model/square-control/generate-square-control-level';
+import { SquareControlManager } from '@/model/square-control/SquareControlManager';
+import { useDragAndDrop } from '@/composables/use-drag-and-drop';
+import { SquareControlBoardCellType } from '@/model/square-control/square-control-types';
+import Button from './Button.vue';
 
 const chessBoard = useTemplateRef<HTMLElement>('chessBoard');
+
+const completedDialog = useTemplateRef<HTMLDialogElement>('completedDialog');
 
 const props = defineProps<{
    seed: number;
@@ -75,32 +86,27 @@ const level = generateSquareControlLevel({
    pieces: props.pieceCount,
 });
 
-const board = makeSquareControlBoard(level.board, level.depot);
+const manager = new SquareControlManager(level);
 
-const { selectedCellID, hoveredCellID, hoverPosition, isDragging } = useDraggablePiece({
-   canMoveToCell: (sourceCellID, targetCellID) => {
-      return !!board.makeMoveOperation(sourceCellID, targetCellID);
-   },
-   onPieceMove: (sourceCellID, targetCellID) => {
-      const op = board.makeMoveOperation(sourceCellID, targetCellID);
-
-      if (op) {
-         op();
-      } else {
-         throw new Error(`Invalid move from ${sourceCellID} to ${targetCellID}`);
-      }
+const { selectedItemID, hoveredDropZoneID, hoverPosition } = useDragAndDrop({
+   onDrop: (sourceCellID, targetCellID) => {
+      return manager.movePiece(sourceCellID, targetCellID);
    },
 });
 
-watch(selectedCellID, (cellID) => {
-   if (cellID === undefined) {
-      board.clearSelection();
-   } else {
-      board.setSelectedCell(cellID);
+watch(manager.percentSolved, (percentSolved) => {
+   if (percentSolved === 1) {
+      completedDialog.value?.showModal();
    }
 });
 
-watch(hoveredCellID, board.setHoveredCell);
+watch(selectedItemID, (cellID) => {
+   if (cellID === undefined) {
+      manager.clearSelection();
+   } else {
+      manager.selectedCell(cellID);
+   }
+});
 
 defineExpose({
    resetGame: () => {
@@ -111,10 +117,12 @@ defineExpose({
 
 <style lang="scss" scoped>
 .squareControl {
+   width: 90vw;
    flex-grow: 1;
    display: flex;
    flex-direction: column;
    align-items: center;
+   margin: 0 auto;
 }
 
 .isDragging {
@@ -122,27 +130,20 @@ defineExpose({
 }
 
 .chessBoard {
-   width: 80vw;
+   width: 100%;
    user-select: none;
    display: grid;
-   grid-template-columns: repeat(v-bind('board.width'), 1fr);
-   grid-template-rows: repeat(v-bind('board.height'), 1fr);
-}
-
-@media screen and (min-width: 640px) {
-   .chessBoard {
-      width: 512px;
-   }
+   grid-template-columns: repeat(v-bind('manager.width'), 1fr);
 }
 
 .floatingPiece {
    position: fixed;
    pointer-events: none;
    z-index: 1000;
-   width: 56px;
-   height: 56px;
-   margin-top: -28px;
-   margin-left: -28px;
+   width: 16vw;
+   height: 16vw;
+   margin-top: -8vw;
+   margin-left: -8vw;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -154,5 +155,24 @@ defineExpose({
    justify-content: center;
    gap: 1em;
    margin: 1.25em 1em 0.5em 1em;
+   height: 15vw;
+}
+
+@media screen and (min-width: 600px) {
+   .squareControl {
+      width: 540px;
+      font-size: 1.5em;
+   }
+
+   .pieceDepot {
+      height: 90px;
+   }
+
+   .floatingPiece {
+      height: 90px;
+      width: 90px;
+      margin-top: -45px;
+      margin-left: -45px;
+   }
 }
 </style>

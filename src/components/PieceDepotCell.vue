@@ -28,9 +28,8 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .cell {
-   width: 5vw;
+   height: 100%;
    aspect-ratio: 1;
-   position: relative;
    user-select: none;
    position: relative;
    background-color: var(--lightCell);

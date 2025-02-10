@@ -1,21 +1,12 @@
-import { ChessPieceType, ChessPlayer, type ChessPiece } from './chess-piece-types';
-import { makePRNG, type PRNG } from './make-prng';
-import { calculateLegalMoves } from './calculate-legal-moves';
-
-interface BoardCell {
-   piece?: ChessPiece;
-   expected?: number;
-}
-
-interface DepotCell {
-   piece: ChessPiece;
-   available: number;
-}
-
-export interface SquareControlLevel {
-   board: BoardCell[][];
-   depot: DepotCell[];
-}
+import { ChessPieceType, ChessPlayer, type ChessPiece } from '../../lib/chess-piece-types';
+import { makePRNG, type PRNG } from '../../lib/make-prng';
+import { calculateLegalMoves } from '../../lib/calculate-legal-moves';
+import {
+   SquareControlBoardCellType,
+   type BoardCell,
+   type DepotCell,
+   type SquareControlLevel,
+} from './square-control-types';
 
 interface GenerateSquareControlLevelOptions {
    seed: number;
@@ -104,11 +95,13 @@ function generateBoard(
       pieces.length,
    );
 
-   const board = new Array(boardProps.height).fill(undefined).map(() => {
-      return new Array(boardProps.width).fill(undefined).map((): BoardCell => {
-         return {};
+   const board: { piece?: ChessPiece; expected?: number }[][] = new Array(boardProps.height)
+      .fill(undefined)
+      .map(() => {
+         return new Array(boardProps.width).fill(undefined).map(() => {
+            return {};
+         });
       });
-   });
 
    cells.forEach(({ x, y }) => {
       board[y][x].piece = pieces.splice(prng.inRange(0, pieces.length - 1), 1)[0];
@@ -125,10 +118,15 @@ function generateBoard(
    return board.map((row) => {
       return row.map(({ piece, expected }) => {
          if (!piece && expected) {
-            return { expected };
+            return {
+               type: SquareControlBoardCellType.Target,
+               expected,
+            };
          }
 
-         return {};
+         return {
+            type: SquareControlBoardCellType.Square,
+         };
       });
    });
 }

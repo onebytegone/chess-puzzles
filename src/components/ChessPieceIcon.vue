@@ -13,10 +13,11 @@ const icon = defineAsyncComponent(() => import(`../assets/${props.piece.type}.sv
 
 <style lang="scss" scoped>
 .piece {
+   font-size: 13px;
    width: 100%;
    height: 100%;
    paint-order: stroke;
-   stroke-width: 0.05em;
+   stroke-width: 0.6px;
    stroke-linecap: round;
    stroke-linejoin: round;
 }
