@@ -3,7 +3,6 @@
       <div class="contents">
          <span v-if="props.isSelected">{{ props.actualControlCount }}</span>
          <span v-else>{{ props.expectedControlCount }}</span>
-         <!-- <span class="id">{{ props.cellID }}</span> -->
       </div>
    </div>
 </template>
@@ -73,13 +72,6 @@ const stateClasses = computed(() => {
 
 .tinted {
    background-color: var(--darkCell);
-}
-
-.id {
-   position: absolute;
-   top: 2px;
-   left: 2px;
-   font-size: 0.1em;
 }
 
 .contents {

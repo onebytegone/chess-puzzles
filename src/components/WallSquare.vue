@@ -1,6 +1,5 @@
 <template>
    <div class="square"></div>
-   <!-- <span class="id">{{ props.cellID }}</span> -->
 </template>
 
 <style lang="scss" scoped>
