@@ -1,3 +1,11 @@
+<template>
+   <div v-if="needRefresh" class="pwa-toast" aria-labelledby="toast-message" role="alert">
+      <span id="toast-message">{{ title }}</span>
+      <button type="button" class="reload" @click="updateServiceWorker()">Reload</button>
+      <button type="button" @click="close">Close</button>
+   </div>
+</template>
+
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRegisterSW } from 'virtual:pwa-register/vue';
@@ -24,14 +32,19 @@ function registerPeriodicSync(swUrl: string, r: ServiceWorkerRegistration) {
          },
       });
 
-      if (resp?.status === 200) await r.update();
+      if (resp?.status === 200) {
+         await r.update();
+      }
    }, period);
 }
 
 const { needRefresh, updateServiceWorker } = useRegisterSW({
    immediate: true,
    onRegisteredSW(swUrl, r) {
-      if (period <= 0) return;
+      if (period <= 0) {
+         return;
+      }
+
       if (r?.active?.state === 'activated') {
          swActivated.value = true;
          registerPeriodicSync(swUrl, r);
@@ -46,7 +59,10 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({
 });
 
 const title = computed(() => {
-   if (needRefresh.value) return 'New content available, click on reload button to update.';
+   if (needRefresh.value) {
+      return 'New content available, click on reload button to update.';
+   }
+
    return '';
 });
 
@@ -55,49 +71,33 @@ function close() {
 }
 </script>
 
-<template>
-   <div v-if="needRefresh" class="pwa-toast" aria-labelledby="toast-message" role="alert">
-      <div class="message">
-         <span id="toast-message">
-            {{ title }}
-         </span>
-      </div>
-      <div class="buttons">
-         <button type="button" class="reload" @click="updateServiceWorker()">Reload</button>
-         <button type="button" @click="close">Close</button>
-      </div>
-   </div>
-</template>
-
-<style scoped>
+<style lang="scss" scoped>
 .pwa-toast {
    position: fixed;
-   right: 0;
+   display: flex;
+   gap: 4px;
+   align-items: center;
+   left: 16px;
+   right: 16px;
    bottom: 0;
-   margin: 16px;
+   margin: 16px auto;
    padding: 12px;
    border: 1px solid #8885;
    border-radius: 4px;
    z-index: 1;
-   text-align: left;
-   box-shadow: 3px 4px 5px 0 #8885;
-   display: grid;
-   background-color: white;
+   box-shadow: 3px 0px 5px 0 #1115;
+   background-color: rgba($color: #fff, $alpha: 0.05);
 }
-.pwa-toast .message {
-   margin-bottom: 8px;
+
+#toast-message {
+   flex-grow: 1;
 }
-.pwa-toast .buttons {
-   display: flex;
-}
+
 .pwa-toast button {
    border: 1px solid #8885;
    outline: none;
    margin-right: 5px;
    border-radius: 2px;
    padding: 3px 10px;
-}
-.pwa-toast button.reload {
-   display: block;
 }
 </style>
