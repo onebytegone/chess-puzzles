@@ -15,7 +15,8 @@ const icon = defineAsyncComponent(() => import(`../assets/${props.piece.type}.sv
 .piece {
    font-size: 13px;
    width: 100%;
-   height: 100%;
+   height: auto;
+   object-fit: cover;
    paint-order: stroke;
    stroke-width: 0.6px;
    stroke-linecap: round;
