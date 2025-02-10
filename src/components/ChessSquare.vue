@@ -36,6 +36,7 @@ const stateClasses = computed(() => {
    aspect-ratio: 1;
    position: relative;
    user-select: none;
+   -webkit-user-select: none;
    position: relative;
    background-color: var(--lightCell);
 }

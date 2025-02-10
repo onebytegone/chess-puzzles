@@ -30,7 +30,6 @@ const props = defineProps<{
 .cell {
    height: 100%;
    aspect-ratio: 1;
-   user-select: none;
    position: relative;
    background-color: var(--lightCell);
    border-radius: 4px;

@@ -118,6 +118,8 @@ defineExpose({
 
 <style lang="scss" scoped>
 .squareControl {
+   user-select: none;
+   -webkit-user-select: none;
    width: 90vw;
    flex-grow: 1;
    display: flex;
