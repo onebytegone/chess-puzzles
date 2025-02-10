@@ -14,7 +14,7 @@ export interface DragAndDropComposable {
 function getElement(event: MouseEvent | TouchEvent, selector: string): HTMLElement | undefined {
    let eventTarget = event.target;
 
-   if (event instanceof TouchEvent) {
+   if (window.TouchEvent && event instanceof TouchEvent) {
       const touch = event.changedTouches[0];
       eventTarget = document.elementFromPoint(touch.clientX, touch.clientY);
    }
@@ -49,7 +49,7 @@ export function useDragAndDrop(props: DragAndDropComposableProps): DragAndDropCo
    function updateHoverPosition(event: MouseEvent | TouchEvent) {
       if (event instanceof MouseEvent) {
          hoverPosition.value = { x: event.clientY, y: event.clientX };
-      } else if (event instanceof TouchEvent) {
+      } else if (window.TouchEvent && event instanceof TouchEvent) {
          const touch = event.touches[0];
          hoverPosition.value = { x: touch.clientY, y: touch.clientX };
       }
