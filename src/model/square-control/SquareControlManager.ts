@@ -48,10 +48,15 @@ export class SquareControlManager {
                      return this.selectedCellID.value === id;
                   }),
                   isControlled: computed(() => {
-                     const controlledBy = this._controlMap.value[id] || [],
-                        selectedCell = this.selectedCellID.value;
+                     const controlMap = this._controlMap.value,
+                        controlledBy = controlMap[id] || [],
+                        selectedCellID = this.selectedCellID.value;
 
-                     return selectedCell ? controlledBy.includes(selectedCell) : false;
+                     if (selectedCellID && !this.selectedPiece.value) {
+                        return (controlMap[selectedCellID] || []).includes(id);
+                     }
+
+                     return selectedCellID ? controlledBy.includes(selectedCellID) : false;
                   }),
                };
             }
@@ -127,11 +132,13 @@ export class SquareControlManager {
 
       if (!cell) {
          this.selectedCellID.value = undefined;
+         this.selectedPiece.value = undefined;
       } else if (isDepotCellState(cell)) {
          this.selectedCellID.value = cell.available.value > 0 ? cell.id : undefined;
          this.selectedPiece.value = cell.piece;
       } else if (cell.type === SquareControlBoardCellType.Target) {
          this.selectedCellID.value = cell.id;
+         this.selectedPiece.value = undefined;
       } else if (cell.type === SquareControlBoardCellType.Square) {
          this.selectedCellID.value = cell.id;
          this.selectedPiece.value = cell.piece.value;

@@ -25,6 +25,7 @@
                :isSelected="cell.isSelected.value"
                :isTinted="cell.isTinted"
                :isControlled="cell.isControlled.value"
+               :data-draggable-item-id="cell.id"
             />
             <WallSquare v-else :cellID="cell.id" />
          </template>

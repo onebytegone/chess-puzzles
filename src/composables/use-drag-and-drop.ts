@@ -59,18 +59,19 @@ export function useDragAndDrop(props: DragAndDropComposableProps): DragAndDropCo
       const itemID = getDraggableItemID(event),
          dropZoneID = getDraggableDropZoneID(event);
 
-      if (itemID === undefined && dropZoneID === undefined) {
-         clearSelection();
-         return;
-      }
-
-      if (selectedItemID.value && dropZoneID) {
-         props.onDrop(selectedItemID.value, dropZoneID);
+      if (itemID === undefined && (dropZoneID === undefined || !selectedItemID.value)) {
          clearSelection();
          return;
       }
 
       wasAlreadySelected.value = itemID === selectedItemID.value;
+
+      if (selectedItemID.value && dropZoneID && !wasAlreadySelected.value) {
+         props.onDrop(selectedItemID.value, dropZoneID);
+         clearSelection();
+         return;
+      }
+
       selectedItemID.value = itemID;
       hoveredDropZoneID.value = dropZoneID;
       updateHoverPosition(event);
