@@ -81,8 +81,8 @@ const { selectedItemID, hoveredDropZoneID, hoverPosition } = useDragAndDrop({
    },
 });
 
-watch(manager.percentSolved, (percentSolved) => {
-   if (percentSolved === 1) {
+watch([manager.percentSolved, manager.piecesLeft], ([percentSolved, piecesLeft]) => {
+   if (percentSolved === 1 && piecesLeft === 0) {
       emit('completed');
    }
 });

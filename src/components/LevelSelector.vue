@@ -1,7 +1,11 @@
 <template>
    <div class="levelSelector">
-      <Button v-for="level in levelManager.levelSummaries" :key="level.id" :routeTo="'/level/' + level.id"
-         :type="level.isCompleted ? 'outlined' : 'primary'">
+      <Button
+         v-for="level in levelManager.levelSummaries"
+         :key="level.id"
+         :routeTo="'/level/' + level.id"
+         :type="level.isCompleted ? 'outlined' : 'primary'"
+      >
          <span>{{ level.name }}</span>
          <Checkmark class="checkmark" v-if="level.isCompleted" alt="Completed" />
       </Button>

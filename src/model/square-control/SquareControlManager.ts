@@ -22,6 +22,7 @@ export class SquareControlManager {
    public readonly selectedPiece: Ref<ChessPiece | undefined>;
    public readonly selectedCellID: Ref<string | undefined>;
    public readonly percentSolved: Ref<number>;
+   public readonly piecesLeft: Ref<number>;
 
    private readonly _controlMap: Ref<Record<string, string[]>> = ref({});
 
@@ -124,6 +125,12 @@ export class SquareControlManager {
          );
 
          return total === 0 ? 0 : solved / total;
+      });
+
+      this.piecesLeft = computed(() => {
+         return this.depotCells.reduce((memo, cell) => {
+            return memo + cell.available.value;
+         }, 0);
       });
    }
 
