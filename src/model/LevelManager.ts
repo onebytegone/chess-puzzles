@@ -64,6 +64,10 @@ export class LevelManager {
       this._persistLevelState(state);
    }
 
+   public getNextLevelID(levelID: string): string | undefined {
+      return this._levels[this._levels.findIndex((level) => level.id === levelID) + 1]?.id;
+   }
+
    private _getPersistedLevelState(): Record<string, boolean> {
       return JSON.parse(localStorage.getItem(LEVEL_STATE_KEY) || '{}');
    }

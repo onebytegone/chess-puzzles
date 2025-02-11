@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import SquareControlView from '@/views/SquareControlView.vue';
+import LevelView from '@/views/LevelView.vue';
 
 const router = createRouter({
    history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,9 @@ const router = createRouter({
          component: HomeView,
       },
       {
-         path: '/square-control/:levelID',
-         name: 'square-control',
-         component: SquareControlView,
+         path: '/level/:levelID',
+         name: 'level',
+         component: LevelView,
          props: true,
       },
    ],

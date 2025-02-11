@@ -1,11 +1,7 @@
 <template>
    <div class="levelSelector">
-      <Button
-         v-for="level in levelManager.levelSummaries"
-         :key="level.id"
-         :routeTo="'/square-control/' + level.id"
-         :class="{ outlined: level.isCompleted }"
-      >
+      <Button v-for="level in levelManager.levelSummaries" :key="level.id" :routeTo="'/level/' + level.id"
+         :type="level.isCompleted ? 'outlined' : 'primary'">
          <span>{{ level.name }}</span>
          <Checkmark class="checkmark" v-if="level.isCompleted" alt="Completed" />
       </Button>
@@ -25,8 +21,13 @@ const levelManager = loadLevelManager();
    flex-direction: column;
    gap: 1rem;
    padding: 1rem;
-   max-width: 50vw;
    margin: 0 auto;
+}
+
+@media screen and (min-width: 400px) {
+   .levelSelector {
+      max-width: 320px;
+   }
 }
 
 :deep(.button) {

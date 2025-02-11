@@ -24,6 +24,9 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --buttonBackground-outlined--hover: rgba(255, 255, 255, 0.05);
    --buttonText-outlined: #d6d6d6;
    --buttonBorder-outlined: #{$buttonBackground};
+   --dialogBackground: #1f1f1f;
+   --dialogBorder: rgb(105, 105, 105);
+   --dialogText: CanvasText;
    color-scheme: dark light;
 }
 

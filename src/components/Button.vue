@@ -1,16 +1,21 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-   <RouterLink v-if="props.routeTo" class="button" :to="props.routeTo">
+   <RouterLink
+      v-if="props.routeTo"
+      class="button"
+      :class="{ outlined: props.type === 'outlined' }"
+      :to="props.routeTo"
+   >
       <slot />
    </RouterLink>
-   <button v-else class="button" type="button">
+   <button v-else class="button" :class="{ outlined: props.type === 'outlined' }" type="button">
       <slot />
    </button>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-   type?: 'primary' | 'secondary';
+   type?: 'primary' | 'outlined';
    routeTo?: string;
 }>();
 </script>

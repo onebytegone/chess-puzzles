@@ -21,5 +21,6 @@
 .navigationBar :deep(h1) {
    font-size: 1em;
    margin: 0;
+   font-weight: normal;
 }
 </style>
