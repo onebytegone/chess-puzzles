@@ -50,11 +50,6 @@
             :isHovered="cell.id === hoveredDropZoneID"
          />
       </div>
-
-      <dialog ref="completedDialog">
-         <h2>Completed!</h2>
-         <Button routeTo="/">Back</Button>
-      </dialog>
    </div>
 </template>
 
@@ -65,29 +60,20 @@ import PieceDepotCell from './PieceDepotCell.vue';
 import ChessPieceIcon from './ChessPieceIcon.vue';
 import TargetSquare from './TargetSquare.vue';
 import WallSquare from './WallSquare.vue';
-import { generateSquareControlLevel } from '@/model/square-control/generate-square-control-level';
 import { SquareControlManager } from '@/model/square-control/SquareControlManager';
 import { useDragAndDrop } from '@/composables/use-drag-and-drop';
-import { SquareControlBoardCellType } from '@/model/square-control/square-control-types';
-import Button from './Button.vue';
+import {
+   SquareControlBoardCellType,
+   type SquareControlLevel,
+} from '@/model/square-control/square-control-types';
 
 const chessBoard = useTemplateRef<HTMLElement>('chessBoard');
 
-const completedDialog = useTemplateRef<HTMLDialogElement>('completedDialog');
-
 const props = defineProps<{
-   seed: number;
-   squareCount: number;
-   pieceCount: number;
+   level: SquareControlLevel;
 }>();
 
-const level = generateSquareControlLevel({
-   seed: props.seed,
-   board: { squareCount: props.squareCount },
-   pieces: props.pieceCount,
-});
-
-const manager = new SquareControlManager(level);
+const manager = new SquareControlManager(props.level);
 
 const { selectedItemID, hoveredDropZoneID, hoverPosition } = useDragAndDrop({
    onDrop: (sourceCellID, targetCellID) => {
@@ -97,7 +83,7 @@ const { selectedItemID, hoveredDropZoneID, hoverPosition } = useDragAndDrop({
 
 watch(manager.percentSolved, (percentSolved) => {
    if (percentSolved === 1) {
-      completedDialog.value?.showModal();
+      emit('completed');
    }
 });
 
@@ -114,6 +100,10 @@ defineExpose({
       window.location.reload();
    },
 });
+
+const emit = defineEmits<{
+   completed: [];
+}>();
 </script>
 
 <style lang="scss" scoped>

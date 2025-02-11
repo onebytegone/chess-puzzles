@@ -11,7 +11,7 @@ const router = createRouter({
          component: HomeView,
       },
       {
-         path: '/square-control/:seed/:squareCount?/:pieceCount?',
+         path: '/square-control/:levelID',
          name: 'square-control',
          component: SquareControlView,
          props: true,

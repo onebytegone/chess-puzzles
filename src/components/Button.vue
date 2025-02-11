@@ -20,14 +20,13 @@ const props = defineProps<{
    text-decoration: none;
    cursor: pointer;
    outline: 0;
+   background-color: var(--buttonBackground);
    color: var(--buttonText);
-   background-color: var(--button);
-   border-color: var(--button);
    display: inline-block;
    font-weight: 400;
    line-height: 1.5;
    text-align: center;
-   border: 1px solid transparent;
+   border: 1px solid var(--buttonBorder);
    padding: 6px 12px;
    font-size: 16px;
    border-radius: 0.25rem;
@@ -38,9 +37,17 @@ const props = defineProps<{
       box-shadow 0.15s ease-in-out;
 
    &:hover {
-      color: var(--buttonText);
-      background-color: var(--buttonHover);
-      border-color: var(--buttonHover);
+      background-color: var(--buttonBackground--hover);
+   }
+
+   &.outlined {
+      background-color: var(--buttonBackground-outlined);
+      color: var(--buttonText-outlined);
+      border-color: var(--buttonBorder-outlined);
+
+      &:hover {
+         background-color: var(--buttonBackground-outlined--hover);
+      }
    }
 }
 </style>

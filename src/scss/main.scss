@@ -1,3 +1,6 @@
+$buttonBackground: #3b5072;
+$buttonBackground--hover: darken($buttonBackground, 10%);
+
 :root {
    --blackPiece: #1f1f1f;
    --blackPieceStroke: #d6d6d6;
@@ -13,9 +16,14 @@
    --whitePieceStroke: #1f1f1f;
    --textNormal: CanvasText;
    --pageBackground: #1f1f1f;
-   --button: #3b5072;
+   --buttonBackground: #{$buttonBackground};
+   --buttonBackground--hover: #{$buttonBackground--hover};
    --buttonText: #d6d6d6;
-   --buttonHover: darken(#3b5072, 4%);
+   --buttonBorder: #{$buttonBackground};
+   --buttonBackground-outlined: transparent;
+   --buttonBackground-outlined--hover: rgba(255, 255, 255, 0.05);
+   --buttonText-outlined: #d6d6d6;
+   --buttonBorder-outlined: #{$buttonBackground};
    color-scheme: dark light;
 }
 

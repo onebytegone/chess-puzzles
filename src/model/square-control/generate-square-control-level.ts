@@ -8,10 +8,20 @@ import {
    type SquareControlLevel,
 } from './square-control-types';
 
-interface GenerateSquareControlLevelOptions {
+export interface GenerateSquareControlLevelOptions {
    seed: number;
    board?: { squareCount?: number };
    pieces?: number;
+}
+
+export function isGenerateSquareControlLevelOptions(
+   o: unknown,
+): o is GenerateSquareControlLevelOptions {
+   return (
+      o !== null &&
+      typeof o === 'object' &&
+      typeof (o as GenerateSquareControlLevelOptions).seed === 'number'
+   );
 }
 
 export function generateSquareControlLevel(
