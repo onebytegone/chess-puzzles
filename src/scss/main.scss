@@ -32,6 +32,8 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --dialogText: #d6d6d6;
    --toastBackground: #{$toastBackground};
    color-scheme: dark light;
+
+   --timing-ease: cubic-bezier(0.25, 0, 0.3, 1);
 }
 
 *,
@@ -53,4 +55,36 @@ body {
    flex-direction: column;
    max-height: 100vh;
    height: 100vh;
+}
+
+dialog:not([open]) {
+   pointer-events: none;
+   opacity: 0;
+}
+
+dialog {
+   display: grid;
+   transition: opacity 0.3s var(--timing-ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   dialog {
+      animation: scale-down 0.3s cubic-bezier(0.5, -0.5, 0.1, 1.5) forwards;
+   }
+
+   dialog[open] {
+      animation: slide-in-up 0.3s var(--timing-ease) forwards;
+   }
+}
+
+@keyframes slide-in-up {
+   from {
+      transform: translateY(100%);
+   }
+}
+
+@keyframes scale-down {
+   to {
+      transform: scale(0.75);
+   }
 }
