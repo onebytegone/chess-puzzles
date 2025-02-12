@@ -16,6 +16,11 @@ const router = createRouter({
          component: LevelView,
          props: true,
       },
+      {
+         path: '/:pathMatch(.*)*',
+         name: 'not-found',
+         redirect: '/',
+      },
    ],
 });
 
