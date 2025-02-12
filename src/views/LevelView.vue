@@ -15,6 +15,14 @@
    <dialog class="dialog" ref="completedDialog">
       <h2>Completed!</h2>
       <div class="buttonGroup">
+         <Button :type="levelRating === -1 ? 'primary' : 'outlined'" @click="levelRating = -1"
+            >👎</Button
+         >
+         <Button :type="levelRating === 1 ? 'primary' : 'outlined'" @click="levelRating = 1"
+            >👍</Button
+         >
+      </div>
+      <div class="buttonGroup">
          <Button type="outlined" routeTo="/">Back</Button>
          <Button v-if="nextLevelLink" :routeTo="nextLevelLink">Next</Button>
       </div>
@@ -22,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue';
 import SquareControl from '../components/SquareControl.vue';
 import NavigationBar from '../components/NavigationBar.vue';
 import Button from '../components/Button.vue';
@@ -48,6 +56,13 @@ const levelManager = loadLevelManager();
 
 const levelDefinition = computed(() => {
    return levelManager.getLevel(props.levelID);
+});
+
+const levelRating = ref(levelManager.getLevelRating(props.levelID));
+
+watch(levelRating, (rating) => {
+   console.log(rating);
+   levelManager.setLevelRating(props.levelID, rating);
 });
 
 const level = computed(() => {
@@ -106,6 +121,7 @@ function onLevelCompletion() {
 }
 
 .buttonGroup {
+   margin-top: 1em;
    display: flex;
    justify-content: space-between;
    gap: 1rem;

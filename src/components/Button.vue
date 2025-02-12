@@ -1,21 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-   <RouterLink
-      v-if="props.routeTo"
-      class="button"
-      :class="{ outlined: props.type === 'outlined' }"
-      :to="props.routeTo"
-   >
+   <RouterLink v-if="props.routeTo" class="button" :class="props.type" :to="props.routeTo">
       <slot />
    </RouterLink>
-   <button v-else class="button" :class="{ outlined: props.type === 'outlined' }" type="button">
+   <button v-else class="button" :class="props.type" type="button">
       <slot />
    </button>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-   type?: 'primary' | 'outlined';
+   type?: 'primary' | 'outlined' | 'danger';
    routeTo?: string;
 }>();
 </script>
@@ -31,7 +26,7 @@ const props = defineProps<{
    font-weight: 400;
    line-height: 1.5;
    text-align: center;
-   border: 1px solid var(--buttonBorder);
+   border: 2px solid var(--buttonBorder);
    padding: 6px 12px;
    font-size: 16px;
    border-radius: 0.25rem;
@@ -43,6 +38,16 @@ const props = defineProps<{
 
    &:hover {
       background-color: var(--buttonBackground--hover);
+   }
+
+   &.danger {
+      background-color: var(--buttonBackground-danger);
+      color: var(--buttonText-danger);
+      border-color: var(--buttonBorder-danger);
+
+      &:hover {
+         background-color: var(--buttonBackground-danger--hover);
+      }
    }
 
    &.outlined {

@@ -2,6 +2,8 @@ $defaultBackground: #1f1f1f;
 $toastBackground: lighten($defaultBackground, 5%);
 $buttonBackground: #3b5072;
 $buttonBackground--hover: darken($buttonBackground, 10%);
+$buttonBackground-danger: #823232;
+$buttonBackground-danger--hover: darken($buttonBackground-danger, 10%);
 
 :root {
    --blackPiece: #1f1f1f;
@@ -17,7 +19,7 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --wallCell: #2e3037;
    --whitePiece: #d6d6d6;
    --whitePieceStroke: #1f1f1f;
-   --textNormal: CanvasText;
+   --textNormal: #d6d6d6;
    --pageBackground: #{$defaultBackground};
    --buttonBackground: #{$buttonBackground};
    --buttonBackground--hover: #{$buttonBackground--hover};
@@ -27,6 +29,10 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --buttonBackground-outlined--hover: rgba(255, 255, 255, 0.05);
    --buttonText-outlined: #d6d6d6;
    --buttonBorder-outlined: #{$buttonBackground};
+   --buttonBackground-danger: #{$buttonBackground-danger};
+   --buttonBackground-danger--hover: #{$buttonBackground-danger--hover};
+   --buttonText-danger: #d6d6d6;
+   --buttonBorder-danger: #602020;
    --dialogBackground: #{$defaultBackground};
    --dialogBorder: rgb(105, 105, 105);
    --dialogText: #d6d6d6;
@@ -65,6 +71,7 @@ dialog:not([open]) {
 dialog {
    display: grid;
    transition: opacity 0.3s var(--timing-ease);
+   color: var(--textNormal);
 }
 
 @media (prefers-reduced-motion: no-preference) {

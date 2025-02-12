@@ -25,7 +25,8 @@ interface LevelSummary {
    isCompleted: boolean;
 }
 
-const LEVEL_STATE_KEY = 'levelState';
+export const LEVEL_RATING_KEY = 'levelRating';
+export const LEVEL_STATE_KEY = 'levelState';
 
 export class LevelManager {
    private readonly _levels: LevelDefinition[] = [];
@@ -74,5 +75,18 @@ export class LevelManager {
 
    private _persistLevelState(state: Record<string, boolean>): void {
       localStorage.setItem(LEVEL_STATE_KEY, JSON.stringify(state));
+   }
+
+   public getLevelRating(levelID: string): number {
+      const ratings = JSON.parse(localStorage.getItem(LEVEL_RATING_KEY) || '{}');
+
+      return ratings[levelID] || 0;
+   }
+
+   public setLevelRating(levelID: string, rating: number): void {
+      const ratings = JSON.parse(localStorage.getItem(LEVEL_RATING_KEY) || '{}');
+
+      ratings[levelID] = rating;
+      localStorage.setItem(LEVEL_RATING_KEY, JSON.stringify(ratings));
    }
 }
