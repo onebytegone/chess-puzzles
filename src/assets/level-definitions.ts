@@ -28,13 +28,25 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
          { piece: ChessPieceType.Queen, available: 1 },
       ],
    }),
+   squareControl({
+      board: `
+         _ 1 _ _
+         1 _ _ _
+         _ _ _ _
+         0 _ _ _
+      `,
+      depot: [
+         { piece: ChessPieceType.Knight, available: 1 },
+         { piece: ChessPieceType.Queen, available: 1 },
+      ],
+   }),
    ...Array.from({ length: 15 }, (_, i) => {
       return {
          type: LevelType.SquareControl,
          level: {
             seed: i,
-            board: { squareCount: 12, targetCount: 3 },
-            pieces: 2,
+            board: { squareCount: 12, targetCount: 3, zeroTargetPercentage: 1 },
+            pieces: { count: 2, types: [ChessPieceType.Queen] },
          },
       };
    }),
@@ -44,7 +56,7 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
          level: {
             seed: i,
             board: { squareCount: 16, targetCount: 3 },
-            pieces: 3,
+            pieces: { count: 3, types: [ChessPieceType.Queen] },
          },
       };
    }),
@@ -54,7 +66,7 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
          level: {
             seed: i,
             board: { squareCount: 25, targetCount: 3 },
-            pieces: 4,
+            pieces: { count: 4, types: [ChessPieceType.Queen] },
          },
       };
    }),
@@ -64,7 +76,7 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
          level: {
             seed: i,
             board: { squareCount: 25, targetCount: 10 },
-            pieces: 6,
+            pieces: { count: 4, types: [ChessPieceType.Queen] },
          },
       };
    }),

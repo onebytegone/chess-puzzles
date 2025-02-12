@@ -10,8 +10,23 @@ import {
 
 export interface GenerateSquareControlLevelOptions {
    seed: number;
-   board?: { squareCount?: number; targetCount?: number };
-   pieces?: number;
+   board?: { squareCount?: number; targetCount?: number; zeroTargetPercentage?: number };
+   pieces?: {
+      count?: number;
+      types?: ChessPieceType[];
+   };
+}
+
+export interface GenerateBoardProps {
+   width: number;
+   height: number;
+   targetCount: number | undefined;
+   zeroTargetPercentage: number | undefined;
+}
+
+export interface GenerateDepotProps {
+   pieceCount?: number;
+   pieceTypes?: ChessPieceType[];
 }
 
 export function isGenerateSquareControlLevelOptions(
@@ -27,14 +42,17 @@ export function isGenerateSquareControlLevelOptions(
 export function generateSquareControlLevel(
    opts: GenerateSquareControlLevelOptions,
 ): SquareControlLevel {
-   const prng = makePRNG(opts.seed),
-      boardProps = generateBoardProps(prng, opts),
-      depot = generateDepot(prng, boardProps.pieces);
+   const prng = makePRNG(opts.seed);
+
+   const depot = generateDepot(prng, {
+      pieceCount: opts.pieces?.count,
+      pieceTypes: opts.pieces?.types,
+   });
 
    return {
       board: generateBoard(
          prng,
-         boardProps,
+         generateBoardProps(prng, opts),
          depot.flatMap((cell) => {
             return new Array(cell.available).fill(cell.piece);
          }),
@@ -46,14 +64,8 @@ export function generateSquareControlLevel(
 function generateBoardProps(
    prng: PRNG,
    opts: GenerateSquareControlLevelOptions,
-): {
-   width: number;
-   height: number;
-   targetCount: number | undefined;
-   pieces: number;
-} {
+): GenerateBoardProps {
    const squareCount = generateValue(prng, opts.board?.squareCount, 16, 36),
-      pieceCount = generateValue(prng, opts.pieces, 5, 12),
       boardWidth = Math.ceil(Math.sqrt(squareCount)),
       boardHeight = Math.ceil(squareCount / boardWidth);
 
@@ -61,16 +73,17 @@ function generateBoardProps(
       width: boardWidth,
       height: boardHeight,
       targetCount: opts.board?.targetCount,
-      pieces: pieceCount,
+      zeroTargetPercentage: opts.board?.zeroTargetPercentage,
    };
 }
 
-function generateDepot(prng: PRNG, totalPieceCount: number): DepotCell[] {
-   const allPieceTypes = Object.values(ChessPieceType),
-      numberOfTypes = prng.inRange(1, Math.min(allPieceTypes.length, totalPieceCount)),
-      pieceTypes = prng.randomElements(allPieceTypes, numberOfTypes);
+function generateDepot(prng: PRNG, props: GenerateDepotProps): DepotCell[] {
+   const pieceCount = generateValue(prng, props.pieceCount, 5, 12),
+      allPieceTypes = Object.values(ChessPieceType),
+      numberOfTypes = prng.inRange(1, Math.min(allPieceTypes.length, pieceCount)),
+      pieceTypes = props.pieceTypes || prng.randomElements(allPieceTypes, numberOfTypes);
 
-   const depots = Array(totalPieceCount)
+   const depots = Array(pieceCount)
       .fill(undefined)
       .map(() => {
          return prng.randomElement(pieceTypes);
@@ -99,7 +112,7 @@ function generateDepot(prng: PRNG, totalPieceCount: number): DepotCell[] {
 
 function generateBoard(
    prng: PRNG,
-   boardProps: { width: number; height: number; targetCount: number | undefined },
+   boardProps: GenerateBoardProps,
    pieces: ChessPiece[],
 ): BoardCell[][] {
    const cells = prng.randomElements(
@@ -127,6 +140,27 @@ function generateBoard(
       });
    });
 
+   if (boardProps.zeroTargetPercentage) {
+      const zeroTargets = board
+         .flatMap((row, y) => {
+            return row.map(({ piece, expected }, x) => {
+               return !piece && !expected ? { x, y } : undefined;
+            });
+         })
+         .filter((cell) => {
+            return !!cell;
+         });
+
+      const zeroTargetCells = prng.randomElements(
+         zeroTargets,
+         Math.floor(zeroTargets.length * boardProps.zeroTargetPercentage),
+      );
+
+      zeroTargetCells.forEach(({ x, y }) => {
+         board[y][x].expected = 0;
+      });
+   }
+
    if (boardProps.targetCount) {
       const targets = board
          .flatMap((row, y) => {
@@ -138,19 +172,19 @@ function generateBoard(
             return !!cell;
          });
 
-      const targetCellToRemove = prng.randomElements(
+      const targetCellsToRemove = prng.randomElements(
          targets,
          targets.length - boardProps.targetCount,
       );
 
-      targetCellToRemove.forEach(({ x, y }) => {
+      targetCellsToRemove.forEach(({ x, y }) => {
          delete board[y][x].expected;
       });
    }
 
    return board.map((row) => {
       return row.map(({ piece, expected }) => {
-         if (!piece && expected) {
+         if (!piece && expected !== undefined) {
             return {
                type: SquareControlBoardCellType.Target,
                expected,

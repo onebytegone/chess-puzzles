@@ -40,7 +40,7 @@ LEVEL_DEFINITIONS.forEach((levelDefinition) => {
                if (cell.type === SquareControlBoardCellType.Square && cell.piece) {
                   return formatPiece(cell.piece);
                } else if (cell.type === SquareControlBoardCellType.Target) {
-                  return 'T';
+                  return cell.expected;
                }
                return '_';
             });
