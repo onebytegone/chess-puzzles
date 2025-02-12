@@ -34,8 +34,21 @@ const stateClasses = computed(() => {
 .target {
    user-select: none;
    position: relative;
-   background-color: var(--lightCell);
    aspect-ratio: 1;
+   color: var(--targetText);
+   font-size: 2.5em;
+   font-weight: bold;
+   background: repeating-linear-gradient(
+      -45deg,
+      var(--lightCell),
+      var(--lightCell) 5%,
+      var(--darkCell) 5%,
+      var(--darkCell) 10%
+   );
+}
+
+.selected {
+   color: var(--targetText--selected);
 }
 
 .over .contents::after,
@@ -68,10 +81,6 @@ const stateClasses = computed(() => {
 
 .over .contents::after {
    background-color: var(--targetCornersOver);
-}
-
-.tinted {
-   background-color: var(--darkCell);
 }
 
 .contents {

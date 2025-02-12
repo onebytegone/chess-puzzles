@@ -116,6 +116,7 @@ const emit = defineEmits<{
    flex-direction: column;
    align-items: center;
    margin: 0 auto;
+   font-size: 1.1rem;
 }
 
 .isDragging {
@@ -151,10 +152,16 @@ const emit = defineEmits<{
    height: 15vw;
 }
 
+@media screen and (min-width: 380px) {
+   .squareControl {
+      font-size: 1.5rem;
+   }
+}
+
 @media screen and (min-width: 600px) {
    .squareControl {
       width: 540px;
-      font-size: 1.5em;
+      font-size: 1.8em;
    }
 
    .pieceDepot {

@@ -5,14 +5,15 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
 
 :root {
    --blackPiece: #1f1f1f;
-   --blackPieceStroke: #d6d6d6;
-   --darkCell: #6d7384;
+   --blackPieceStroke: #c4c4c4;
+   --darkCell: #777e90;
    --lightCell: #888d9b;
    --selectedOverlay: rgba(0, 0, 0, 0.4);
    --hoverOverlay: rgba(0, 0, 0, 0.5);
    --targetCorners: rgba(59, 80, 114, 0.8);
    --targetCornersOver: rgb(113, 61, 61, 0.8);
-   --targetText: #d6d6d6;
+   --targetText: #080808;
+   --targetText--selected: #c8c8c8;
    --wallCell: #2e3037;
    --whitePiece: #d6d6d6;
    --whitePieceStroke: #1f1f1f;
@@ -28,7 +29,7 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --buttonBorder-outlined: #{$buttonBackground};
    --dialogBackground: #{$defaultBackground};
    --dialogBorder: rgb(105, 105, 105);
-   --dialogText: CanvasText;
+   --dialogText: #d6d6d6;
    --toastBackground: #{$toastBackground};
    color-scheme: dark light;
 }
