@@ -5,6 +5,7 @@
          :key="level.id"
          :routeTo="'/level/' + level.id"
          :type="level.isCompleted ? 'outlined' : 'primary'"
+         :class="{ uncompleted: !level.isCompleted }"
       >
          <span>{{ level.name }}</span>
          <Checkmark class="checkmark" v-if="level.isCompleted" alt="Completed" />
@@ -16,7 +17,12 @@
 import { loadLevelManager } from '../lib/load-level-manager';
 import Button from './Button.vue';
 import Checkmark from '../assets/checkmark.svg';
+import { onMounted } from 'vue';
 const levelManager = loadLevelManager();
+
+onMounted(() => {
+   document.querySelector('.uncompleted')?.scrollIntoView({ behavior: 'auto', block: 'center' });
+});
 </script>
 
 <style lang="scss" scoped>
