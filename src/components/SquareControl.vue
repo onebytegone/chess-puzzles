@@ -115,7 +115,7 @@ const emit = defineEmits<{
    display: flex;
    flex-direction: column;
    align-items: center;
-   margin: 0 auto;
+   margin: 1em auto;
    font-size: 1.1rem;
 }
 
