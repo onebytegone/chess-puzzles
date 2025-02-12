@@ -6,7 +6,7 @@
                v-if="cell.type === SquareControlBoardCellType.Square"
                :cellID="cell.id"
                :data-draggable-item-id="cell.piece.value ? cell.id : undefined"
-               :data-drop-zone-id="!cell.piece.value ? cell.id : undefined"
+               :data-drop-zone-id="!cell.piece.value || cell.isSelected.value ? cell.id : undefined"
                :isSelected="cell.isSelected.value"
                :isHovered="cell.id === hoveredDropZoneID"
                :isTinted="cell.isTinted"
