@@ -9,6 +9,7 @@ export interface DragAndDropComposable {
    selectedItemID: Ref<string | undefined>;
    hoveredDropZoneID: Ref<string | undefined>;
    hoverPosition: Ref<{ x: number; y: number } | undefined>;
+   isTouchDrag: Ref<boolean>;
 }
 
 function getElement(event: MouseEvent | TouchEvent, selector: string): HTMLElement | undefined {
@@ -38,7 +39,8 @@ export function useDragAndDrop(props: DragAndDropComposableProps): DragAndDropCo
    const selectedItemID = ref<string | undefined>(undefined),
       hoveredDropZoneID = ref<string | undefined>(undefined),
       hoverPosition = ref<{ x: number; y: number } | undefined>(undefined),
-      wasAlreadySelected = ref(false);
+      wasAlreadySelected = ref(false),
+      isTouchDrag = ref(false);
 
    function clearSelection() {
       selectedItemID.value = undefined;
@@ -75,6 +77,10 @@ export function useDragAndDrop(props: DragAndDropComposableProps): DragAndDropCo
       selectedItemID.value = itemID;
       hoveredDropZoneID.value = dropZoneID;
       updateHoverPosition(event);
+
+      if (window.TouchEvent && event instanceof TouchEvent) {
+         isTouchDrag.value = true;
+      }
    }
 
    useEventListener('mousedown', startInteraction);
@@ -109,10 +115,12 @@ export function useDragAndDrop(props: DragAndDropComposableProps): DragAndDropCo
          hoveredDropZoneID.value = undefined;
          hoverPosition.value = undefined;
       }
+
+      isTouchDrag.value = false;
    }
 
    useEventListener('mouseup', endInteraction);
    useEventListener('touchend', endInteraction);
 
-   return { selectedItemID, hoveredDropZoneID, hoverPosition };
+   return { selectedItemID, hoveredDropZoneID, hoverPosition, isTouchDrag };
 }

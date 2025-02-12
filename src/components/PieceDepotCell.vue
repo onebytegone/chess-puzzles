@@ -64,7 +64,7 @@ const props = defineProps<{
    width: 2.5em;
 }
 
-.unavailable .contents {
+.unavailable .contents .piece {
    opacity: 20%;
 }
 
@@ -83,5 +83,17 @@ const props = defineProps<{
 
 .hovered .contents {
    border: 4px solid var(--hoverOverlay);
+}
+
+.touchDrag .hovered .contents::after {
+   content: '';
+   position: absolute;
+   top: -50%;
+   left: -50%;
+   right: -50%;
+   bottom: -50%;
+   border-radius: 50%;
+   background-color: var(--selectedOverlay);
+   z-index: 1000;
 }
 </style>

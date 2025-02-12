@@ -1,5 +1,5 @@
 <template>
-   <div class="squareControl" :class="{ isDragging: hoverPosition }">
+   <div class="squareControl" :class="{ isDragging: hoverPosition, touchDrag: isTouchDrag }">
       <div ref="chessBoard" class="chessBoard">
          <template v-for="cell in manager.boardCells.flat()" :key="cell.id">
             <ChessSquare
@@ -75,7 +75,7 @@ const props = defineProps<{
 
 const manager = new SquareControlManager(props.level);
 
-const { selectedItemID, hoveredDropZoneID, hoverPosition } = useDragAndDrop({
+const { selectedItemID, hoveredDropZoneID, hoverPosition, isTouchDrag } = useDragAndDrop({
    onDrop: (sourceCellID, targetCellID) => {
       return manager.movePiece(sourceCellID, targetCellID);
    },
