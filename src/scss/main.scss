@@ -1,3 +1,5 @@
+$defaultBackground: #1f1f1f;
+$toastBackground: lighten($defaultBackground, 5%);
 $buttonBackground: #3b5072;
 $buttonBackground--hover: darken($buttonBackground, 10%);
 
@@ -15,7 +17,7 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --whitePiece: #d6d6d6;
    --whitePieceStroke: #1f1f1f;
    --textNormal: CanvasText;
-   --pageBackground: #1f1f1f;
+   --pageBackground: #{$defaultBackground};
    --buttonBackground: #{$buttonBackground};
    --buttonBackground--hover: #{$buttonBackground--hover};
    --buttonText: #d6d6d6;
@@ -24,9 +26,10 @@ $buttonBackground--hover: darken($buttonBackground, 10%);
    --buttonBackground-outlined--hover: rgba(255, 255, 255, 0.05);
    --buttonText-outlined: #d6d6d6;
    --buttonBorder-outlined: #{$buttonBackground};
-   --dialogBackground: #1f1f1f;
+   --dialogBackground: #{$defaultBackground};
    --dialogBorder: rgb(105, 105, 105);
    --dialogText: CanvasText;
+   --toastBackground: #{$toastBackground};
    color-scheme: dark light;
 }
 

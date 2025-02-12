@@ -1,14 +1,15 @@
 <template>
    <div v-if="needRefresh" class="pwa-toast" aria-labelledby="toast-message" role="alert">
       <span id="toast-message">{{ title }}</span>
-      <button type="button" class="reload" @click="updateServiceWorker()">Reload</button>
-      <button type="button" @click="close">Close</button>
+      <Button @click="updateServiceWorker()">Reload</Button>
+      <Button @click="close">Close</Button>
    </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRegisterSW } from 'virtual:pwa-register/vue';
+import Button from './Button.vue';
 
 // check for updates every hour
 const period = 60 * 60 * 1000;
@@ -86,7 +87,7 @@ function close() {
    border-radius: 4px;
    z-index: 1;
    box-shadow: 3px 0px 5px 0 #1115;
-   background-color: rgba($color: #fff, $alpha: 0.05);
+   background-color: var(--toastBackground);
 }
 
 #toast-message {
