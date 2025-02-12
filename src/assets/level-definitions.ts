@@ -1,6 +1,6 @@
-import { ChessPieceType, ChessPlayer } from '@/lib/chess-piece-types';
-import { LevelType, type LevelDefinition } from '@/model/LevelManager';
-import { SquareControlBoardCellType } from '@/model/square-control/square-control-types';
+import { ChessPieceType, ChessPlayer } from '../lib/chess-piece-types';
+import { LevelType, type LevelDefinition } from '../model/LevelManager';
+import { SquareControlBoardCellType } from '../model/square-control/square-control-types';
 
 interface SquareControlTemplate {
    board: string;

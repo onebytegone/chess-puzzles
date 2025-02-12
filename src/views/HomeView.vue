@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import LevelSelector from '@/components/LevelSelector.vue';
-import NavigationBar from '@/components/NavigationBar.vue';
+import LevelSelector from '../components/LevelSelector.vue';
+import NavigationBar from '../components/NavigationBar.vue';
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import { calculateLegalMoves } from '@/lib/calculate-legal-moves';
+import { calculateLegalMoves } from '../../lib/calculate-legal-moves';
 import { computed, ref, type Ref } from 'vue';
 import {
    DEPOT_ID_PREFIX,
@@ -12,7 +12,7 @@ import {
    type DepotCellState,
    type SquareControlLevel,
 } from './square-control-types';
-import type { ChessPiece } from '@/lib/chess-piece-types';
+import type { ChessPiece } from '../../lib/chess-piece-types';
 
 export class SquareControlManager {
    public readonly height: number;

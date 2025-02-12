@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { loadLevelManager } from '@/lib/load-level-manager';
+import { loadLevelManager } from '../lib/load-level-manager';
 import Button from './Button.vue';
-import Checkmark from '@/assets/checkmark.svg';
+import Checkmark from '../assets/checkmark.svg';
 const levelManager = loadLevelManager();
 </script>
 

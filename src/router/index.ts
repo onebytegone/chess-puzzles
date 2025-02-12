@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import LevelView from '@/views/LevelView.vue';
+import LevelView from '../views/LevelView.vue';
 
 const router = createRouter({
    history: createWebHashHistory(import.meta.env.BASE_URL),

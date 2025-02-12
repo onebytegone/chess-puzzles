@@ -1,4 +1,4 @@
-import type { ChessPiece } from '@/lib/chess-piece-types';
+import type { ChessPiece } from '../../lib/chess-piece-types';
 import type { Ref } from 'vue';
 
 export enum SquareControlBoardCellType {

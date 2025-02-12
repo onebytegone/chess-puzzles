@@ -23,14 +23,14 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
-import SquareControl from '@/components/SquareControl.vue';
-import NavigationBar from '@/components/NavigationBar.vue';
-import Button from '@/components/Button.vue';
+import SquareControl from '../components/SquareControl.vue';
+import NavigationBar from '../components/NavigationBar.vue';
+import Button from '../components/Button.vue';
 import {
    generateSquareControlLevel,
    isGenerateSquareControlLevelOptions,
-} from '@/model/square-control/generate-square-control-level';
-import { loadLevelManager } from '@/lib/load-level-manager';
+} from '../model/square-control/generate-square-control-level';
+import { loadLevelManager } from '../lib/load-level-manager';
 
 const game = useTemplateRef('game');
 

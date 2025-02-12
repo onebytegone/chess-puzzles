@@ -60,12 +60,12 @@ import PieceDepotCell from './PieceDepotCell.vue';
 import ChessPieceIcon from './ChessPieceIcon.vue';
 import TargetSquare from './TargetSquare.vue';
 import WallSquare from './WallSquare.vue';
-import { SquareControlManager } from '@/model/square-control/SquareControlManager';
-import { useDragAndDrop } from '@/composables/use-drag-and-drop';
+import { SquareControlManager } from '../model/square-control/SquareControlManager';
+import { useDragAndDrop } from '../composables/use-drag-and-drop';
 import {
    SquareControlBoardCellType,
    type SquareControlLevel,
-} from '@/model/square-control/square-control-types';
+} from '../model/square-control/square-control-types';
 
 const chessBoard = useTemplateRef<HTMLElement>('chessBoard');
 
