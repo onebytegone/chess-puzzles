@@ -129,7 +129,7 @@ function generateBoard(
       });
 
    cells.forEach(({ x, y }) => {
-      board[y][x].piece = pieces.splice(prng.inRange(0, pieces.length - 1), 1)[0];
+      board[y][x].piece = pieces.splice(prng.inRange(0, pieces.length), 1)[0];
    });
 
    cells.forEach(({ x, y }) => {

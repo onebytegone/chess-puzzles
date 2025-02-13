@@ -25,7 +25,7 @@ export function makePRNG(seed: number): PRNG {
    };
 
    fn.randomElement = <T>(arr: T[]): T => {
-      return arr[fn.inRange(0, arr.length - 1)];
+      return arr[fn.inRange(0, arr.length)];
    };
 
    fn.randomElements = <T>(arr: T[], count: number): T[] => {
@@ -36,7 +36,7 @@ export function makePRNG(seed: number): PRNG {
       const output = [];
 
       for (let i = 0; i < count; i++) {
-         const index = fn.inRange(0, arr.length - 1);
+         const index = fn.inRange(0, arr.length);
 
          output.push(arr[index]);
          arr.splice(index, 1);
