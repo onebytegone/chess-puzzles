@@ -75,4 +75,45 @@ defineExpose({
 h2 {
    margin: 0.25em 0 0 0;
 }
+
+:deep(p) {
+   margin: 0;
+}
+
+.dialog:not([open]) {
+   pointer-events: none;
+   opacity: 0;
+}
+
+.dialog {
+   display: flex;
+   flex-direction: column;
+   transition:
+      display 0.3s allow-discrete,
+      overlay 0.3s allow-discrete,
+      opacity 0.3s var(--timing-ease) allow-discrete;
+   color: var(--textNormal);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+   .dialog {
+      animation: scale-down 0.3s cubic-bezier(0.5, -0.5, 0.1, 1.5) forwards;
+   }
+
+   .dialog[open] {
+      animation: slide-in-up 0.3s var(--timing-ease) forwards;
+   }
+}
+
+@keyframes slide-in-up {
+   from {
+      transform: translateY(100%);
+   }
+}
+
+@keyframes scale-down {
+   to {
+      transform: scale(0.75);
+   }
+}
 </style>
