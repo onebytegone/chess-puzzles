@@ -41,10 +41,7 @@ onMounted(() => {
 }
 
 :deep(.button) {
-   display: flex;
    justify-content: space-between;
-   align-items: center;
-   gap: 0.5rem;
    min-height: 48px;
 }
 
