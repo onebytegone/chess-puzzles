@@ -1,20 +1,22 @@
 <template>
-   <NavigationBar>
-      <h1>Chess Puzzles</h1>
-      <Button @click="settingsDialog?.open()">Settings</Button>
-   </NavigationBar>
-   <main class="levels">
-      <LevelSelector />
-   </main>
-   <Dialog title="Settings" ref="settingsDialog">
-      <Button type="primary" icon="share" @click="shareData">Share Progress</Button>
-      <Button type="danger" icon="trash-can" @click="promptResetData">Reset All Data</Button>
-   </Dialog>
-   <Dialog title="Greetings!" ref="welcomeDialog">
-      <p>Chess Puzzles runs best when installed on your device.</p>
-      <p>To do so, <b>add this page on your Home Screen</b>.</p>
-      <p>Enjoy the game!</p>
-   </Dialog>
+   <div class="page">
+      <NavigationBar>
+         <h1>Chess Puzzles</h1>
+         <Button @click="settingsDialog?.open()">Settings</Button>
+      </NavigationBar>
+      <main class="levels">
+         <LevelSelector />
+      </main>
+      <Dialog title="Settings" ref="settingsDialog">
+         <Button type="primary" icon="share" @click="shareData">Share Progress</Button>
+         <Button type="danger" icon="trash-can" @click="promptResetData">Reset All Data</Button>
+      </Dialog>
+      <Dialog title="Greetings!" ref="welcomeDialog">
+         <p>Chess Puzzles runs best when installed on your device.</p>
+         <p>To do so, <b>add this page on your Home Screen</b>.</p>
+         <p>Enjoy the game!</p>
+      </Dialog>
+   </div>
 </template>
 
 <script setup lang="ts">
@@ -71,6 +73,12 @@ async function shareData() {
 </script>
 
 <style lang="scss" scoped>
+.page {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+}
+
 .levels {
    overflow: scroll;
 }

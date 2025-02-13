@@ -1,36 +1,43 @@
 <template>
-   <NavigationBar>
-      <Button routeTo="/">Back</Button>
-      <h1>{{ levelDefinition.name }}</h1>
-      <Button @click.prevent="resetGame">Restart</Button>
-   </NavigationBar>
-   <main>
-      <SquareControl
-         ref="game"
-         :key="props.levelID"
-         :level="level"
-         v-on:completed="onLevelCompletion"
-      />
-   </main>
-   <Dialog title="Completed!" ref="completedDialog" :dismissable="false" :showCloseButton="false">
-      <div class="ratingGroup">
-         <span>Rating:</span>
-         <Button
-            :type="levelRating === -1 ? 'primary' : 'text'"
-            @click="updateRating(-1)"
-            icon="thumbs-down"
-         ></Button>
-         <Button
-            :type="levelRating === 1 ? 'primary' : 'text'"
-            @click="updateRating(1)"
-            icon="thumbs-up"
-         ></Button>
-      </div>
-      <div class="buttonGroup">
-         <Button type="outlined" routeTo="/">Back</Button>
-         <Button v-if="nextLevelLink" :routeTo="nextLevelLink">Next</Button>
-      </div>
-   </Dialog>
+   <div class="page">
+      <NavigationBar>
+         <Button routeTo="/">Back</Button>
+         <h1>{{ levelDefinition.name }}</h1>
+         <Button @click.prevent="resetGame">Restart</Button>
+      </NavigationBar>
+      <main>
+         <SquareControl
+            ref="game"
+            :key="props.levelID"
+            :level="level"
+            v-on:completed="onLevelCompletion"
+         />
+      </main>
+      <Dialog
+         title="Completed!"
+         ref="completedDialog"
+         :dismissable="false"
+         :showCloseButton="false"
+      >
+         <div class="ratingGroup">
+            <span>Rating:</span>
+            <Button
+               :type="levelRating === -1 ? 'primary' : 'text'"
+               @click="updateRating(-1)"
+               icon="thumbs-down"
+            ></Button>
+            <Button
+               :type="levelRating === 1 ? 'primary' : 'text'"
+               @click="updateRating(1)"
+               icon="thumbs-up"
+            ></Button>
+         </div>
+         <div class="buttonGroup">
+            <Button type="outlined" routeTo="/">Back</Button>
+            <Button v-if="nextLevelLink" :routeTo="nextLevelLink">Next</Button>
+         </div>
+      </Dialog>
+   </div>
 </template>
 
 <script setup lang="ts">
@@ -108,7 +115,6 @@ function onLevelCompletion() {
 .page {
    display: flex;
    flex-direction: column;
-   max-height: 100vh;
    height: 100vh;
 }
 
