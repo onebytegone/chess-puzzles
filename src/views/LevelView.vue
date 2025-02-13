@@ -12,13 +12,12 @@
          v-on:completed="onLevelCompletion"
       />
    </main>
-   <dialog class="dialog" ref="completedDialog">
-      <h2>Completed!</h2>
+   <Dialog title="Completed!" ref="completedDialog" :dismissable="false" :showCloseButton="false">
       <div class="buttonGroup">
          <Button type="outlined" routeTo="/">Back</Button>
          <Button v-if="nextLevelLink" :routeTo="nextLevelLink">Next</Button>
       </div>
-   </dialog>
+   </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -26,6 +25,7 @@ import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue
 import SquareControl from '../components/SquareControl.vue';
 import NavigationBar from '../components/NavigationBar.vue';
 import Button from '../components/Button.vue';
+import Dialog from '../components/Dialog.vue';
 import {
    generateSquareControlLevel,
    isGenerateSquareControlLevelOptions,
@@ -34,7 +34,7 @@ import { loadLevelManager } from '../lib/load-level-manager';
 
 const game = useTemplateRef('game');
 
-const completedDialog = useTemplateRef<HTMLDialogElement>('completedDialog');
+const completedDialog = useTemplateRef('completedDialog');
 
 const resetGame = () => {
    game.value?.resetGame();
@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
 
 function onLevelCompletion() {
    levelManager.markLevelAsCompleted(props.levelID);
-   completedDialog.value?.showModal();
+   completedDialog.value?.open();
 }
 </script>
 
@@ -86,23 +86,6 @@ function onLevelCompletion() {
    flex-direction: column;
    max-height: 100vh;
    height: 100vh;
-}
-
-.dialog {
-   border-radius: 8px;
-   background-color: var(--dialogBackground);
-   border: 2px solid var(--dialogBorder);
-   color: var(--dialogText);
-   padding: 1rem;
-   min-width: 280px;
-
-   &::backdrop {
-      background-color: rgba(0, 0, 0, 0.5);
-   }
-
-   h2 {
-      text-align: center;
-   }
 }
 
 .buttonGroup {

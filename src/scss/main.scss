@@ -21,7 +21,7 @@ $buttonBackground-danger--hover: color.adjust($buttonBackground-danger, $lightne
    --wallCell: #2e3037;
    --whitePiece: #d6d6d6;
    --whitePieceStroke: #1f1f1f;
-   --textNormal: CanvasText;
+   --textNormal: #d6d6d6;
    --pageBackground: #{$defaultBackground};
    --buttonBackground: #{$buttonBackground};
    --buttonBackground--hover: #{$buttonBackground--hover};
@@ -73,6 +73,7 @@ dialog:not([open]) {
 dialog {
    display: grid;
    transition: opacity 0.3s var(--timing-ease);
+   color: var(--textNormal);
 }
 
 @media (prefers-reduced-motion: no-preference) {
