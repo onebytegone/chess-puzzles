@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { loadLevelManager } from '../lib/load-level-manager';
 import Button from './Button.vue';
-import Checkmark from '../assets/checkmark.svg';
+import Checkmark from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/check.svg';
 import { onMounted } from 'vue';
 const levelManager = loadLevelManager();
 
@@ -50,5 +50,6 @@ onMounted(() => {
 
 .checkmark {
    fill: var(--buttonText);
+   height: 1.5em;
 }
 </style>

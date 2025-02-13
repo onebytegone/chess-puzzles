@@ -18,6 +18,7 @@
       "preview:levels": "tsx bin/preview-levels.ts"
    },
    "dependencies": {
+      "@fortawesome/fontawesome-free": "6.7.2",
       "@unhead/vue": "1.11.18",
       "@vueuse/core": "12.5.0",
       "vue": "3.5.13",
