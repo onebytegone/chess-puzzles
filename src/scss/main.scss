@@ -1,9 +1,11 @@
+@use 'sass:color';
+
 $defaultBackground: #1f1f1f;
-$toastBackground: lighten($defaultBackground, 5%);
+$toastBackground: color.adjust($defaultBackground, $lightness: 5%);
 $buttonBackground: #3b5072;
-$buttonBackground--hover: darken($buttonBackground, 10%);
+$buttonBackground--hover: color.adjust($buttonBackground, $lightness: -10%);
 $buttonBackground-danger: #823232;
-$buttonBackground-danger--hover: darken($buttonBackground-danger, 10%);
+$buttonBackground-danger--hover: color.adjust($buttonBackground-danger, $lightness: -10%);
 
 :root {
    --blackPiece: #1f1f1f;
