@@ -71,7 +71,8 @@ dialog:not([open]) {
 }
 
 dialog {
-   display: grid;
+   display: flex;
+   flex-direction: column;
    transition: opacity 0.3s var(--timing-ease);
    color: var(--textNormal);
 }
