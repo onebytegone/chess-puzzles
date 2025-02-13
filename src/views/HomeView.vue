@@ -10,6 +10,11 @@
       <Button type="primary" icon="share" @click="shareData">Share Progress</Button>
       <Button type="danger" icon="trash-can" @click="promptResetData">Reset All Data</Button>
    </Dialog>
+   <Dialog title="Greetings!" ref="welcomeDialog">
+      <p>Chess Puzzles runs best when installed on your device.</p>
+      <p>To do so, <b>add this page on your Home Screen</b>.</p>
+      <p>Enjoy the game!</p>
+   </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -18,9 +23,23 @@ import NavigationBar from '../components/NavigationBar.vue';
 import Dialog from '../components/Dialog.vue';
 import Button from '../components/Button.vue';
 import { LevelManager } from '../model/LevelManager';
-import { useTemplateRef } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
+import { isMobile } from '../lib/is-mobile';
 
 const settingsDialog = useTemplateRef('settingsDialog');
+const welcomeDialog = useTemplateRef('welcomeDialog');
+
+onMounted(() => {
+   const showWelcomeDialog =
+      !localStorage.getItem('welcomeDialogShown') &&
+      !window.matchMedia('(display-mode: standalone)').matches &&
+      isMobile();
+
+   if (showWelcomeDialog) {
+      welcomeDialog.value?.open();
+      localStorage.setItem('welcomeDialogShown', 'true');
+   }
+});
 
 function promptResetData() {
    if (confirm('Are you sure you want to reset all data?')) {
