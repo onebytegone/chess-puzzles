@@ -13,6 +13,19 @@
       />
    </main>
    <Dialog title="Completed!" ref="completedDialog" :dismissable="false" :showCloseButton="false">
+      <div class="ratingGroup">
+         <span>Rating:</span>
+         <Button
+            :type="levelRating === -1 ? 'primary' : 'text'"
+            @click="updateRating(-1)"
+            icon="thumbs-down"
+         ></Button>
+         <Button
+            :type="levelRating === 1 ? 'primary' : 'text'"
+            @click="updateRating(1)"
+            icon="thumbs-up"
+         ></Button>
+      </div>
       <div class="buttonGroup">
          <Button type="outlined" routeTo="/">Back</Button>
          <Button v-if="nextLevelLink" :routeTo="nextLevelLink">Next</Button>
@@ -21,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, useTemplateRef, watch, watchEffect } from 'vue';
 import SquareControl from '../components/SquareControl.vue';
 import NavigationBar from '../components/NavigationBar.vue';
 import Button from '../components/Button.vue';
@@ -49,6 +62,17 @@ const levelManager = loadLevelManager();
 const levelDefinition = computed(() => {
    return levelManager.getLevel(props.levelID);
 });
+
+const levelRating = ref(0);
+
+watchEffect(() => {
+   levelRating.value = levelManager.getLevelRating(props.levelID) || 0;
+});
+
+function updateRating(rating: number) {
+   levelManager.setLevelRating(props.levelID, rating);
+   levelRating.value = rating;
+}
 
 const level = computed(() => {
    return isGenerateSquareControlLevelOptions(levelDefinition.value.level)
@@ -86,6 +110,16 @@ function onLevelCompletion() {
    flex-direction: column;
    max-height: 100vh;
    height: 100vh;
+}
+
+.ratingGroup {
+   margin: 0 0 0.5em 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   span {
+      margin-right: 0.5em;
+   }
 }
 
 .buttonGroup {

@@ -14,12 +14,14 @@
 import ThumbsUp from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/thumbs-up.svg';
 import ThumbsDown from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/thumbs-down.svg';
 import TrashCan from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/trash-can.svg';
+import Share from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-up-from-bracket.svg';
 import X from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/x.svg';
 
 const ICON_COMPONENTS = Object.freeze({
    'thumbs-up': ThumbsUp,
    'thumbs-down': ThumbsDown,
    'trash-can': TrashCan,
+   share: Share,
    x: X,
 });
 

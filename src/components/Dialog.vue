@@ -58,6 +58,7 @@ defineExpose({
    border: 2px solid var(--dialogBorder);
    color: var(--dialogText);
    padding: 1rem;
+   gap: 0.75em;
 
    &::backdrop {
       background-color: rgba(0, 0, 0, 0.5);
@@ -68,7 +69,7 @@ defineExpose({
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-bottom: 1em;
+   margin-bottom: 0.5em;
 }
 
 h2 {
