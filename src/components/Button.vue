@@ -10,6 +10,17 @@
       <component v-if="props.icon" :is="ICON_COMPONENTS[props.icon]" />
       <slot />
    </RouterLink>
+   <a
+      v-else-if="props.linkTo"
+      class="button"
+      :class="classes"
+      :href="props.linkTo"
+      target="_blank"
+      :disabled="props.disabled"
+   >
+      <component v-if="props.icon" :is="ICON_COMPONENTS[props.icon]" />
+      <slot />
+   </a>
    <button v-else class="button" :class="classes" type="button" :disabled="props.disabled">
       <component v-if="props.icon" :is="ICON_COMPONENTS[props.icon]" />
       <slot />
@@ -21,13 +32,17 @@ import ThumbsUp from '../../node_modules/@fortawesome/fontawesome-free/svgs/soli
 import ThumbsDown from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/thumbs-down.svg';
 import TrashCan from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/trash-can.svg';
 import Share from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-up-from-bracket.svg';
+import Export from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-up-from-bracket.svg';
 import X from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/x.svg';
+import GitHub from '../../node_modules/@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import { computed } from 'vue';
 
 const ICON_COMPONENTS = Object.freeze({
    'thumbs-up': ThumbsUp,
    'thumbs-down': ThumbsDown,
    'trash-can': TrashCan,
+   export: Export,
+   github: GitHub,
    share: Share,
    x: X,
 });
@@ -36,6 +51,7 @@ interface Props {
    type?: 'primary' | 'outlined' | 'danger' | 'text';
    icon?: keyof typeof ICON_COMPONENTS;
    routeTo?: string;
+   linkTo?: string;
    disabled?: boolean;
 }
 

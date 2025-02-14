@@ -39,6 +39,7 @@ $buttonBackground-danger--hover: color.adjust($buttonBackground-danger, $lightne
    --dialogBorder: rgb(105, 105, 105);
    --dialogText: #d6d6d6;
    --toastBackground: #{$toastBackground};
+   --hrBorder: #484848;
    color-scheme: dark light;
 
    --timing-ease: cubic-bezier(0.25, 0, 0.3, 1);
