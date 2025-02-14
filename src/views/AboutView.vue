@@ -7,8 +7,14 @@
       <main>
          <h2>Chess Puzzles</h2>
          <p>
-            Chess Puzzles is a free open-source game with no ads or tracking. It is built using
-            Vue.js and is hosted on GitHub Pages.
+            The goal of the game is to control all the numbered squares on the board. Each numbered
+            square should be controlled by the indicated number of pieces, no more and no less.
+            Select a piece on the board to see what squares it controls. Select a numbered square to
+            see how many pieces control it.
+         </p>
+         <p>
+            This is a free open-source game with no ads or tracking. It is built using Vue.js and is
+            hosted on GitHub Pages.
          </p>
          <p>
             <em>Did you know?</em> This is a progressive web app (PWA). If this webpage is
