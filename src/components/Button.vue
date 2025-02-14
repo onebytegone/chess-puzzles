@@ -1,10 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-   <RouterLink v-if="props.routeTo" class="button" :class="props.type" :to="props.routeTo">
+   <RouterLink
+      v-if="props.routeTo"
+      class="button"
+      :class="classes"
+      :to="props.routeTo"
+      :disabled="props.disabled"
+   >
       <component v-if="props.icon" :is="ICON_COMPONENTS[props.icon]" />
       <slot />
    </RouterLink>
-   <button v-else class="button" :class="props.type" type="button">
+   <button v-else class="button" :class="classes" type="button" :disabled="props.disabled">
       <component v-if="props.icon" :is="ICON_COMPONENTS[props.icon]" />
       <slot />
    </button>
@@ -16,6 +22,7 @@ import ThumbsDown from '../../node_modules/@fortawesome/fontawesome-free/svgs/so
 import TrashCan from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/trash-can.svg';
 import Share from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/arrow-up-from-bracket.svg';
 import X from '../../node_modules/@fortawesome/fontawesome-free/svgs/solid/x.svg';
+import { computed } from 'vue';
 
 const ICON_COMPONENTS = Object.freeze({
    'thumbs-up': ThumbsUp,
@@ -25,11 +32,23 @@ const ICON_COMPONENTS = Object.freeze({
    x: X,
 });
 
-const props = defineProps<{
+interface Props {
    type?: 'primary' | 'outlined' | 'danger' | 'text';
    icon?: keyof typeof ICON_COMPONENTS;
    routeTo?: string;
-}>();
+   disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+   type: 'primary',
+});
+
+const classes = computed(() => {
+   return {
+      disabled: props.disabled,
+      [props.type]: true,
+   };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -55,6 +74,13 @@ const props = defineProps<{
       background-color 0.15s ease-in-out,
       border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
+
+   &.disabled {
+      cursor: default;
+      &:hover {
+         background-color: unset !important;
+      }
+   }
 
    &:hover {
       background-color: var(--buttonBackground--hover);
