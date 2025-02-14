@@ -29,6 +29,8 @@ export function makePRNG(seed: number): PRNG {
    };
 
    fn.randomElements = <T>(arr: T[], count: number): T[] => {
+      arr = [...arr];
+
       if (arr.length <= count) {
          return arr;
       }

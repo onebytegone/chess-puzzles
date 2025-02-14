@@ -42,11 +42,11 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       depot: [{ piece: ChessPieceType.King, available: 2 }],
    }),
 
-   ...Array.from({ length: 5 }, (_, i) => {
+   ...Array.from({ length: 5 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 16, targetCount: 5 },
             pieces: { count: 3, types: [ChessPieceType.King] },
          },
@@ -65,11 +65,11 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       depot: [{ piece: ChessPieceType.King, available: 2 }],
    }),
 
-   ...Array.from({ length: 5 }, (_, i) => {
+   ...Array.from({ length: 5 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.5 },
             pieces: { count: 3, types: [ChessPieceType.King] },
          },
@@ -112,11 +112,11 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       depot: [{ piece: ChessPieceType.Rook, available: 2 }],
    }),
 
-   ...Array.from({ length: 5 }, (_, i) => {
+   ...Array.from({ length: 5 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.7 },
             pieces: { count: 3, types: [ChessPieceType.Rook] },
          },
@@ -135,11 +135,11 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       depot: [{ piece: ChessPieceType.Bishop, available: 1 }],
    }),
 
-   ...Array.from({ length: 3 }, (_, i) => {
+   ...Array.from({ length: 3 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.5 },
             pieces: { count: 3, types: [ChessPieceType.Bishop] },
          },
@@ -173,33 +173,33 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       ],
    }),
 
-   ...Array.from({ length: 3 }, (_, i) => {
+   ...Array.from({ length: 3 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 3, zeroTargetPercentage: 0.7 },
             pieces: { count: 1, types: [ChessPieceType.Queen] },
          },
       };
    }),
 
-   ...Array.from({ length: 3 }, (_, i) => {
+   ...Array.from({ length: 3 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 3, zeroTargetPercentage: 1 },
             pieces: { count: 2, types: [ChessPieceType.Queen] },
          },
       };
    }),
 
-   ...Array.from({ length: 4 }, (_, i) => {
+   ...Array.from({ length: 4 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 3, zeroTargetPercentage: 1 },
             pieces: { count: 2, types: [ChessPieceType.King, ChessPieceType.Queen] },
          },
@@ -218,33 +218,33 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       depot: [{ piece: ChessPieceType.Knight, available: 1 }],
    }),
 
-   ...Array.from({ length: 3 }, (_, i) => {
+   ...Array.from({ length: 3 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.5 },
             pieces: { count: 2, types: [ChessPieceType.Knight] },
          },
       };
    }),
 
-   ...Array.from({ length: 3 }, (_, i) => {
+   ...Array.from({ length: 3 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.5 },
             pieces: { count: 3, types: [ChessPieceType.Knight] },
          },
       };
    }),
 
-   ...Array.from({ length: 10 }, (_, i) => {
+   ...Array.from({ length: 10 }, () => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.7 },
             pieces: {
                count: 3,
@@ -258,7 +258,7 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.7 },
             pieces: {
                count: 3,
@@ -273,11 +273,11 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       };
    }),
 
-   ...Array.from({ length: 20 }, (_, i) => {
+   ...Array.from({ length: 50 }, (_, i) => {
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
+            seed: seedMemo++,
             board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.7 },
             pieces: {
                count: 4,
@@ -293,20 +293,179 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
       };
    }),
 
-   ...Array.from({ length: 30 }, (_, i) => {
+   ...Array.from({ length: 75 }, (_, i) => {
+      const item = pickFromList(i, [
+         {
+            tag: '5x5; p=4; t=5; 0%',
+            board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=6; t=5; 0%',
+            board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=6; t=5; 50%',
+            board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 0.5 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=4; t=5; 100%',
+            board: { squareCount: 25, targetCount: 5, zeroTargetPercentage: 1 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=6; t=8; 0%',
+            board: { squareCount: 25, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=6; t=8; 50%',
+            board: { squareCount: 25, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+      ]);
       return {
          type: LevelType.SquareControl,
          level: {
-            seed: i + seedMemo++,
-            board: {
-               squareCount: pickFromList(i, [36, 25, 49, 36, 49, 16]),
-               targetCount: pickFromList(i, [8, 5, 5, 8]),
-               zeroTargetPercentage: pickFromList(i, [1, 0.7, 0.7, 0.2, 0]),
-            },
-            pieces: {
-               count: pickFromList(i, [8, 3, 5, 8, 7]),
-               types: ALL_BUT_PAWN,
-            },
+            seed: seedMemo++,
+            board: item.board,
+            pieces: item.pieces,
+         },
+      };
+   }),
+
+   ...Array.from({ length: 75 }, (_, i) => {
+      const item = pickFromList(i, [
+         {
+            tag: '5x5; p=4; t=8; 0%',
+            board: { squareCount: 25, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=4; t=8; 0%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=4; t=12; 0%',
+            board: { squareCount: 36, targetCount: 12, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '5x5; p=4; t=8; 50%',
+            board: { squareCount: 25, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=4; t=8; 50%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=6; t=8; 0%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=6; t=8; 50%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+      ]);
+      return {
+         type: LevelType.SquareControl,
+         level: {
+            seed: seedMemo++,
+            board: item.board,
+            pieces: item.pieces,
+         },
+      };
+   }),
+
+   ...Array.from({ length: 75 }, (_, i) => {
+      const item = pickFromList(i, [
+         {
+            tag: '6x6; p=4; t=8; 0%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=4; t=12; 0%',
+            board: { squareCount: 49, targetCount: 12, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=4; t=8; 50%',
+            board: { squareCount: 49, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=4; t=8; 50%',
+            board: { squareCount: 36, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=4; t=12; 50%',
+            board: { squareCount: 49, targetCount: 12, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=6; t=8; 0%',
+            board: { squareCount: 49, targetCount: 8, zeroTargetPercentage: 0 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=6; t=8; 50%',
+            board: { squareCount: 49, targetCount: 8, zeroTargetPercentage: 0.5 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+      ]);
+      return {
+         type: LevelType.SquareControl,
+         level: {
+            seed: seedMemo++,
+            board: item.board,
+            pieces: item.pieces,
+         },
+      };
+   }),
+
+   ...Array.from({ length: 151 }, (_, i) => {
+      const item = pickFromList(i, [
+         {
+            tag: '7x7; p=4; t=12; 50%',
+            board: { squareCount: 49, targetCount: 12, zeroTargetPercentage: 0.5 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '8x8; p=6; t=18; 50%',
+            board: { squareCount: 64, targetCount: 18, zeroTargetPercentage: 0.5 },
+            pieces: { count: 6, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '7x7; p=4; t=12; 0%',
+            board: { squareCount: 49, targetCount: 12, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '8x8; p=8; t=18; 0%',
+            board: { squareCount: 64, targetCount: 18, zeroTargetPercentage: 0 },
+            pieces: { count: 8, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+         {
+            tag: '6x6; p=4; t=12; 0%',
+            board: { squareCount: 36, targetCount: 12, zeroTargetPercentage: 0 },
+            pieces: { count: 4, maxTypes: 4, types: ALL_BUT_PAWN },
+         },
+      ]);
+      return {
+         type: LevelType.SquareControl,
+         level: {
+            seed: seedMemo++,
+            board: item.board,
+            pieces: item.pieces,
          },
       };
    }),
@@ -314,9 +473,12 @@ const LEVEL_DEFINITIONS: LevelDefinition[] = autoLabel([
 
 export default LEVEL_DEFINITIONS;
 
-function squareControl(template: SquareControlTemplate): Omit<LevelDefinition, 'id' | 'name'> {
+function squareControl(
+   template: SquareControlTemplate & { tag?: string },
+): Omit<LevelDefinition & { tag?: string }, 'id' | 'name'> {
    return {
       type: LevelType.SquareControl,
+      tag: template.tag,
       level: {
          board: template.board
             .trim()
@@ -349,11 +511,13 @@ function squareControl(template: SquareControlTemplate): Omit<LevelDefinition, '
    };
 }
 
-function autoLabel(definitions: Omit<LevelDefinition, 'id' | 'name'>[]): LevelDefinition[] {
+function autoLabel(
+   definitions: Omit<LevelDefinition & { tag?: string }, 'id' | 'name'>[],
+): LevelDefinition[] {
    return definitions.map((definition, index) => {
       return {
          id: `sc:${index + 1}`,
-         name: `Level ${index + 1}`,
+         name: `Level ${index + 1}${definition.tag ? ' - ' + definition.tag : ''}`,
          ...definition,
       };
    });

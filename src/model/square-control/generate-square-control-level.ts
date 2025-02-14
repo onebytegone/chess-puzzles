@@ -13,6 +13,7 @@ export interface GenerateSquareControlLevelOptions {
    board?: { squareCount?: number; targetCount?: number; zeroTargetPercentage?: number };
    pieces?: {
       count?: number;
+      maxTypes?: number;
       types?: ChessPieceType[];
    };
 }
@@ -27,6 +28,7 @@ export interface GenerateBoardProps {
 export interface GenerateDepotProps {
    pieceCount?: number;
    pieceTypes?: ChessPieceType[];
+   maxTypes?: number;
 }
 
 export function isGenerateSquareControlLevelOptions(
@@ -47,6 +49,7 @@ export function generateSquareControlLevel(
    const depot = generateDepot(prng, {
       pieceCount: opts.pieces?.count,
       pieceTypes: opts.pieces?.types,
+      maxTypes: opts.pieces?.maxTypes,
    });
 
    return {
@@ -80,8 +83,11 @@ function generateBoardProps(
 function generateDepot(prng: PRNG, props: GenerateDepotProps): DepotCell[] {
    const pieceCount = generateValue(prng, props.pieceCount, 5, 12),
       allPieceTypes = Object.values(ChessPieceType),
-      numberOfTypes = prng.inRange(1, Math.min(allPieceTypes.length, pieceCount)),
-      pieceTypes = props.pieceTypes || prng.randomElements(allPieceTypes, numberOfTypes);
+      numberOfTypes = prng.inRange(
+         1,
+         Math.min(props.maxTypes ? props.maxTypes + 1 : allPieceTypes.length, pieceCount),
+      ),
+      pieceTypes = prng.randomElements(props.pieceTypes || allPieceTypes, numberOfTypes);
 
    const depots = Array(pieceCount)
       .fill(undefined)

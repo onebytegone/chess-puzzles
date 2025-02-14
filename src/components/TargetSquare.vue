@@ -36,7 +36,7 @@ const stateClasses = computed(() => {
    position: relative;
    aspect-ratio: 1;
    color: var(--targetText);
-   font-size: 2.5em;
+   font-size: 2em;
    font-weight: bold;
    background: repeating-linear-gradient(
       -45deg,
