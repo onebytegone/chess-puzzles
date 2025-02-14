@@ -16,6 +16,7 @@
                      ? undefined
                      : cell.piece.value
                "
+               :class="{ pulse: shouldCellPulse(cell.id) }"
             />
             <TargetSquare
                v-else-if="cell.type === SquareControlBoardCellType.Target"
@@ -38,7 +39,7 @@
          </div>
       </div>
 
-      <div class="pieceDepot">
+      <div class="pieceDepot" :class="{ pulse: shouldDepotPulse }">
          <PieceDepotCell
             v-for="cell in manager.depotCells"
             :key="cell.id"
@@ -54,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, watch } from 'vue';
+import { computed, useTemplateRef, watch } from 'vue';
 import ChessSquare from './ChessSquare.vue';
 import PieceDepotCell from './PieceDepotCell.vue';
 import ChessPieceIcon from './ChessPieceIcon.vue';
@@ -71,6 +72,7 @@ const chessBoard = useTemplateRef<HTMLElement>('chessBoard');
 
 const props = defineProps<{
    level: SquareControlLevel;
+   levelID: string;
 }>();
 
 const manager = new SquareControlManager(props.level);
@@ -104,6 +106,26 @@ defineExpose({
 const emit = defineEmits<{
    completed: [];
 }>();
+
+const shouldDepotPulse = computed(() => {
+   const isPieceSelected = !!selectedItemID.value;
+
+   return (props.levelID === 'sc:1' || props.levelID === 'sc:2') && !isPieceSelected;
+});
+
+function shouldCellPulse(id: string): boolean {
+   const isDepotSelected = !!selectedItemID.value;
+
+   if (props.levelID === 'sc:1' && id === '2:2') {
+      return isDepotSelected;
+   }
+
+   if (props.levelID === 'sc:2' && (id === '2:2' || id === '3:3')) {
+      return isDepotSelected;
+   }
+
+   return false;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -173,6 +195,20 @@ const emit = defineEmits<{
       width: 90px;
       margin-top: -45px;
       margin-left: -45px;
+   }
+}
+
+.pulse {
+   animation: pulse-animation 2s infinite;
+   z-index: 10;
+}
+
+@keyframes pulse-animation {
+   0% {
+      box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.4);
+   }
+   100% {
+      box-shadow: 0 0 0 30px rgba(255, 255, 255, 0);
    }
 }
 </style>

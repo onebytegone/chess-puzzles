@@ -10,6 +10,7 @@
             ref="game"
             :key="props.levelID"
             :level="level"
+            :levelID="props.levelID"
             v-on:completed="onLevelCompletion"
          />
       </main>
